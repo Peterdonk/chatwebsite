@@ -1,8 +1,8 @@
 <?php
 
-$db_servername = "localhost";
-$db_username = "root";
-$db_password = "";
+$db_servername = "_Server Name_";
+$db_username = "_Your Username_";
+$db_password = "_Your Database Password_";
 $db_database = "chatroom";
 
 $conn = mysqli_connect($db_servername, $db_username, $db_password, $db_database);
