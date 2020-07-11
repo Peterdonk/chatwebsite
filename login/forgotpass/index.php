@@ -48,18 +48,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             $mail->isSMTP();                                            // Send using SMTP
             $mail->Host = 'smtp.gmail.com';                    // Set the SMTP server to send through
             $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-            $mail->Username = 'henilmalaviya06@gmail.com';                     // SMTP username
-            $mail->Password = 'henil_646';                               // SMTP password
+            $mail->Username = '_Your GmailId_';                     // SMTP username
+            $mail->Password = '_Your GmailPassword_';                               // SMTP password
             $mail->SMTPSecure = 'tls';                                    // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port = 587;
 
             //Recipients
-            $mail->setFrom('henilmalaviya06@gmail.com', 'Wispychat');
+            $mail->setFrom('_Your GmailId_', 'Wispychat');
             $mail->addAddress($email, "$username");     // Add a recipient
             $mail->isHTML(false);
 
             $mail->Subject = "Wispychat Reset Password";
-            $mail->Body = "Hi $username, Click here to Reset your Password - http://localhost/chat%20room%20versions/chat%20room%2014/login/forgotpass/reset_password.php?token=$token";
+            $mail->Body = "Hi $username, Click here to Reset your Password - _Link To Activateion Script_?token=$token";
 
             if ($mail->send()) {
                 $_SESSION['msg'] = "Check Your Mail At $email To Reset Wispychat Account Password";
