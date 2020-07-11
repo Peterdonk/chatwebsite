@@ -59,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             $mail->isHTML(false);
 
             $mail->Subject = "Wispychat Reset Password";
-            $mail->Body = "Hi $username, Click here to Reset your Password - _Link To Activateion Script_?token=$token";
+            $mail->Body = "Hi $username, Click here to Reset your Password - _Link To Chage Password Script_?token=$token";
 
             if ($mail->send()) {
                 $_SESSION['msg'] = "Check Your Mail At $email To Reset Wispychat Account Password";
