@@ -82,7 +82,7 @@ require "../phpmailer/class.phpmailer.php";
             $mail->isHTML(false);
 
             $mail->Subject = "Wispychat Account Activation";
-            $mail->Body = "Hi $username, Click here to Activate Your Wispychat Account - wispychat.epizy.com/signup/activate.php?token=$token";
+            $mail->Body = "Hi $username, Click here to Activate Your Wispychat Account - _Link To Activation Script_?token=$token";
 
             if ($mail->send()) {
                 $_SESSION['msg'] = "Check Your Mail At $email To Activate Your Wispychat Account Password";
