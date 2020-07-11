@@ -65,34 +65,44 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             $_SESSION['msgTxt'] = "white";
         } else {
             if ($password === $cpassword) {
+require "../phpmailer/class.phpmailer.php";
 
-                $insertquery = "INSERT INTO `emaillogin`(`UserName`, `email`, `mobile`, `password`, `cpassword`, `token`, `status`, `status2`) VALUES ('$username','$email','$mobile','$pass','$cpass', '$token', 'inactive', 'offline')";
+            $mail = new PHPMailer();
+            $mail->isSMTP();                                            // Send using SMTP
+            $mail->Host = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->SMTPAuth = true;                                   // Enable SMTP authentication
+            $mail->Username = '_Your GamilId_';                     // SMTP username
+            $mail->Password = '_Your Gmail Password_';                               // SMTP password
+            $mail->SMTPSecure = 'tls';                                    // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port = 587;
 
-                $subject = "Email Activation";
-                $body = "Hi $username, Click here to activate your account - http://localhost/chat%20room%2014/signup/activate.php?token=$token";
-                $sender_email = "From: henilmalaviya06@gmail.com";
+            //Recipients
+            $mail->setFrom('Your Gmail Id', 'Wispychat');
+            $mail->addAddress($email, "$username");     // Add a recipient
+            $mail->isHTML(false);
 
-                if (mail($email, $subject, $body, $sender_email)) {
-                    $_SESSION['msg'] = "Check your Mail to activate your Account $email";
-                    $sql = "INSERT INTO `settings`(`token`) VALUES('$token');";
-                    $result = mysqli_query($conn, $sql);
-                    if ($result) {
-                        $iqueary = mysqli_query($con, $insertquery);
-                        if ($iqueary) {
-                            header('location:../login/');
-                        } else {
-                            $_SESSION['msg'] = "Failed to Store Details Please Try Again";
-                            $_SESSION['msgBg'] = "danger";
-                            $_SESSION['msgTxt'] = "white";
-                        }
+            $mail->Subject = "Wispychat Account Activation";
+            $mail->Body = "Hi $username, Click here to Activate Your Wispychat Account - wispychat.epizy.com/signup/activate.php?token=$token";
+
+            if ($mail->send()) {
+                $_SESSION['msg'] = "Check Your Mail At $email To Activate Your Wispychat Account Password";
+                $sql = "INSERT INTO `settings`(`token`) VALUES('$token');";
+                $result = mysqli_query($conn, $sql);
+                if ($result) {
+                    $iqueary = mysqli_query($con, $insertquery);
+                    if ($iqueary) {
+                        header('location:../login/');
                     } else {
-                        $_SESSION['msg'] = "Failed To Save Your Setting Data Please Try Agian";
+                        $_SESSION['msg'] = "Failed to Store Details Please Try Again";
+                        $_SESSION['msgBg'] = "danger";
+                        $_SESSION['msgTxt'] = "white";
                     }
                 } else {
-                    $_SESSION['msg'] = "Email sending Failed";
-                    $_SESSION['msgBg'] = "danger";
-                    $_SESSION['msgTxt'] = "white";
+                    $_SESSION['msg'] = "Failed To Save Your Setting Data Please Try Agian";
                 }
+            } else {
+                $_SESSION['msg'] = "Email Sending Failed At $email, Please Try Again";
+            }
             } else {
                 $_SESSION['msg'] = "Password Are not mathcing";
                 $_SESSION['msgBg'] = "danger";
