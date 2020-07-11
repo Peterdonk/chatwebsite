@@ -2,7 +2,7 @@
 
 $db_servername = "localhost";
 $db_username = "root";
-$db_password = "henil0604";
+$db_password = "";
 $db_database = "chatroom";
 
 $conn = mysqli_connect($db_servername, $db_username, $db_password, $db_database);
