@@ -1,0 +1,3 @@
+Steps:
+    1. Make a New Database Called "emaillogin", In that database Import "wispychat_emaillogin.sql" File.
+    2. Make a New Database Called "chatroom", In That Database Import "wispychat_chatroom.sql" File.
