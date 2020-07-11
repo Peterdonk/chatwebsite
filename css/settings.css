@@ -1,0 +1,9 @@
+.showMessage, .preMessage, .runTime{
+    display: flex;
+    margin: 20px;
+}
+
+.message{
+    color: red;
+    font-weight: 900;
+}

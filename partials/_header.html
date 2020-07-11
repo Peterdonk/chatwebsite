@@ -1,0 +1,83 @@
+<script src="https://kit.fontawesome.com/23a0a9f173.js" crossorigin="anonymous"></script>
+
+
+<?php
+// Getting Number of Friend Request
+
+require '../../db/db.php';
+require '../../db/db_connect.php';
+
+$token = $_SESSION['token'];
+
+$sql = "SELECT * FROM `friendreq` WHERE toreq='$token' and `status`='pending'";
+$result = mysqli_query($conn, $sql);
+$numberoffriendrequest =  mysqli_num_rows($result);
+
+
+?>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand mx-2">Wispy Chat Room</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="../home/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../createroom/">Create Room</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../joinroom/">Join Room</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../friendrequests/">Friend Requests <span class="badge badge-dark my-1"><?php 
+                        if($numberoffriendrequest == "0"){}
+                        else{
+                            echo $numberoffriendrequest;
+                        } ?></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../friends/">Friends</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../myrooms/">My Rooms</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../settings/">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../contactus/">Contact Us</a>
+            </li>
+            <?php
+            
+            $token = $_SESSION['token'];
+            if($token=="admin"){
+                echo '
+                <li class="nav-item">
+                    <a class="nav-link" href="../feedback_admin/">Feedback</a>
+                </li>';
+            }
+            ?>
+        </ul>
+        <form action="../whatsnew/" method="POST">
+            <button class="btn btn-outline-warning my-1 mx-1" type="submit">What's New</button>
+        </form>
+        <form action="../logout/" method="POST">
+            <button class="btn btn-outline-danger my-1 mx-1" name="logout">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<div id="alertdiv">
+    <div class="bg-info text-white text-center"><?php echo $_SESSION['msg']; ?></div>
+</div>
+
+<script>
+    setTimeout(() => {
+        document.getElementById('alertdiv').innerHTML = ""
+    }, 7000)
+</script>
